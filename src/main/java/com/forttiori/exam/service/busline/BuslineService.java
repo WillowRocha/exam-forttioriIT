@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 
 @Service
 public class BuslineService {
@@ -17,7 +18,6 @@ public class BuslineService {
     private BuslineRepo repo;
     private ItineraryService itineraryService;
     private CoordRepo coordRepo;
-    private final static Double EARTH_RADIUS = 6371d;
 
     @Autowired
     public BuslineService(BuslineRepo repo, ItineraryService itineraryService, CoordRepo coordRepo) {
@@ -31,7 +31,8 @@ public class BuslineService {
     }
 
     public Iterable<Busline> getItinerariesByRadius(ItineraryFilterRequest req) {
-        return null;
+        ArrayList<Integer> lineIds = coordRepo.findDistinctLineIdsByRadius(req.getLatitude(), req.getLongitude(), req.getRadius());
+        return repo.findAllByIdIn(lineIds);
     }
 
     public Iterable<Busline> getBuslines(String search) {

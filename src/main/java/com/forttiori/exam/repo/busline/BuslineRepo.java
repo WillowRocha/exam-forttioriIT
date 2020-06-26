@@ -3,7 +3,7 @@ package com.forttiori.exam.repo.busline;
 import com.forttiori.exam.model.busline.Busline;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface BuslineRepo extends CrudRepository<Busline, Integer> {
 
@@ -11,5 +11,5 @@ public interface BuslineRepo extends CrudRepository<Busline, Integer> {
 
     Iterable<Busline> findAllByCodeContainingOrNameContainingAllIgnoreCase(String code, String name);
 
-    Iterable<Busline> findAllByIdIn(List<Integer> lineIds);
+    Iterable<Busline> findAllByIdIn(ArrayList<Integer> lineIds);
 }
