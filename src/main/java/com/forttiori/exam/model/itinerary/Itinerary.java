@@ -1,11 +1,13 @@
 package com.forttiori.exam.model.itinerary;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
+@EqualsAndHashCode
 @Table(name = "ITINERARIO")
 public class Itinerary {
 

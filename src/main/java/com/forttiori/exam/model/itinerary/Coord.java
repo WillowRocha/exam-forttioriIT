@@ -3,10 +3,12 @@ package com.forttiori.exam.model.itinerary;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.forttiori.exam.model.id.CoordId;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
 @Entity
+@EqualsAndHashCode
 @IdClass(CoordId.class)
 @Table(name = "COORDENADAS")
 public class Coord {

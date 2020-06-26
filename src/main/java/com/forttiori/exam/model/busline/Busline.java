@@ -2,6 +2,7 @@ package com.forttiori.exam.model.busline;
 
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+@EqualsAndHashCode
 @Table(name = "LINHAS")
 public class Busline {
 

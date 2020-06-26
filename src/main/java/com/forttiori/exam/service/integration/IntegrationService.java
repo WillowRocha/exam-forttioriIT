@@ -6,6 +6,7 @@ import com.forttiori.exam.model.itinerary.Itinerary;
 import com.forttiori.exam.repo.busline.BuslineRepo;
 import com.forttiori.exam.repo.itinerary.CoordRepo;
 import com.forttiori.exam.repo.itinerary.ItineraryRepo;
+import com.forttiori.exam.service.integration.datapoa.DataPoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
