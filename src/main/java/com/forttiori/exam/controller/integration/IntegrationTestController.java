@@ -28,7 +28,7 @@ public class IntegrationTestController {
     }
 
     @PostMapping("/itineraries/{lineId}")
-    ResponseEntity integrateItinerary(@PathVariable("lineId") Integer lineId) {
+    ResponseEntity integrateItinerary(@PathVariable Integer lineId) {
         service.integrateItinerary(lineId);
         return ResponseEntity.ok("");
     }

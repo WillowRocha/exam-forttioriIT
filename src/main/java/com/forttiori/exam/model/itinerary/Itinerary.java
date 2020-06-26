@@ -21,11 +21,11 @@ public class Itinerary {
     @Column(name = "ID_LINHA")
     private Integer lineId;
 
-    @Column(name = "NOME_LINHA")
-    private String lineName;
-
     @Column(name = "CODIGO_LINHA")
     private String lineCode;
+
+    @Column(name = "NOME_LINHA")
+    private String lineName;
 
     @Transient
     private ArrayList<Coord> coords;

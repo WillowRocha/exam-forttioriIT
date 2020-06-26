@@ -49,11 +49,9 @@ public class IntegrationService {
     }
 
     public void integrateItinerary(Integer lineId) throws IllegalArgumentException {
-        Busline line = buslineRepo.findById(lineId).orElse(null);
-        if (line == null) throw new IllegalArgumentException("Linha de ônibus não cadastrada.");
+        Busline line = buslineRepo.findById(lineId).orElseThrow(() -> new IllegalArgumentException("Linha de ônibus não cadastrada."));
 
         Itinerary itinerary = service.getItinerary(line.getId());
-
         if (itinerary == null) throw new IllegalArgumentException("Itinerário não encontrado.");
 
         ArrayList<Coord> coords = new ArrayList<>(itinerary.getCoords());

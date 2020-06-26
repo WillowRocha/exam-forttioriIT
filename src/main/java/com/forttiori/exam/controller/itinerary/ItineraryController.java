@@ -1,17 +1,42 @@
 package com.forttiori.exam.controller.itinerary;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.forttiori.exam.http.ItineraryRequest;
+import com.forttiori.exam.model.itinerary.Itinerary;
+import com.forttiori.exam.service.itinerary.ItineraryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @RestController
-@RequestMapping("/itinerary")
+@RequestMapping("/itineraries")
 public class ItineraryController {
 
-    @GetMapping
-    ResponseEntity teste() {
+    private ItineraryService service;
 
-        return ResponseEntity.ok("Itinerário");
+    @Autowired
+    public ItineraryController(ItineraryService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    Iterable<Itinerary> findAll() {
+        return service.getItineraries();
+    }
+
+    @GetMapping("/{id}")
+    Itinerary findById(@PathVariable @NotNull Integer id) {
+        return service.getItineraryById(id);
+    }
+
+    @PostMapping
+    Itinerary upsertItinerary(@Valid @RequestBody ItineraryRequest request) {
+        return service.upsertItinerary(request);
+    }
+
+    @DeleteMapping("/{id}")
+    void deleteItinerary(@PathVariable @NotNull Integer id) {
+        service.deleteItinerary(id);
     }
 }

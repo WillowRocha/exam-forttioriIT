@@ -14,6 +14,11 @@ public class ErrorHandler {
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(exception.getMessage());
     }
 
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public ResponseEntity illegalArgumentException(IllegalArgumentException exception) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(exception.getMessage());
+    }
+
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity otherExcetions(Exception exception) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
