@@ -29,7 +29,6 @@ public class ExamApplication {
                 .build();
     }
 
-
     @Bean
     HttpMessageConverter getMessageConverters() {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();

@@ -1,5 +1,6 @@
-package com.forttiori.exam.service;
+package com.forttiori.exam.service.integration;
 
+import com.forttiori.exam.model.busline.Busline;
 import com.forttiori.exam.model.busline.json.BuslineResponse;
 import com.forttiori.exam.model.itinerary.Coord;
 import com.forttiori.exam.model.itinerary.Itinerary;
@@ -12,37 +13,44 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 @Service
-public class IntegrationService {
+public class DataPoaService {
 
     private RestTemplate restTemplate;
 
     @Autowired
-    public IntegrationService(RestTemplate restTemplate) {
+    public DataPoaService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public ArrayList<BuslineResponse> getBuslines() {
+    public ArrayList<Busline> getBuslines() {
         String url = "http://www.poatransporte.com.br/php/facades/process.php?a=nc&t=o";
-        return restTemplate.exchange(
+        ArrayList<BuslineResponse> response = restTemplate.exchange(
                 url, HttpMethod.GET, new HttpEntity<>(getHeaders()),
                 new ParameterizedTypeReference<ArrayList<BuslineResponse>>() {
                 }).getBody();
+        return convertToModal(response);
     }
 
     public Itinerary getItinerary(Integer id) {
         String url = "http://www.poatransporte.com.br/php/facades/process.php?a=il&p={id}";
         HashMap<String, Integer> uriParams = new HashMap<>();
         uriParams.put("id", id);
-        String obj = restTemplate.exchange(
-                url, HttpMethod.GET, new HttpEntity<>(getHeaders()),
-                String.class, uriParams).getBody();
-        return convertToItinerary(new JSONObject(obj));
+        String responseBody;
+        try {
+            responseBody = restTemplate.exchange(
+                    url, HttpMethod.GET, new HttpEntity<>(getHeaders()),
+                    String.class, uriParams).getBody();
+            return convertToItinerary(new JSONObject(responseBody));
+        } catch (HttpClientErrorException e) {
+            return null;
+        }
     }
 
     private HttpHeaders getHeaders() { //TODO: Ver se é necessário
@@ -52,11 +60,17 @@ public class IntegrationService {
         return headers;
     }
 
+    private ArrayList<Busline> convertToModal(ArrayList<BuslineResponse> list) {
+        ArrayList<Busline> lines = new ArrayList<>();
+        list.forEach(it -> lines.add(new Busline(it.getId(), it.getCode(), it.getName())));
+        return lines;
+    }
+
     private Itinerary convertToItinerary(JSONObject obj) {
         Itinerary itinerary = new Itinerary();
-        itinerary.setIdlinha(obj.getInt("idlinha"));
-        itinerary.setCodigo(obj.getString("codigo"));
-        itinerary.setNome(obj.getString("nome"));
+        itinerary.setLineId(obj.getInt("idlinha"));
+        itinerary.setLineCode(obj.getString("codigo"));
+        itinerary.setLineName(obj.getString("nome"));
         itinerary.setCoords(convertCoords(obj));
         return itinerary;
     }
@@ -66,7 +80,7 @@ public class IntegrationService {
         int current = 0;
         JSONObject next = getNullableCoord(obj, current);
         while (next != null) {
-            coords.add(new Coord(next.getDouble("lat"), next.getDouble("lng")));
+            coords.add(new Coord(obj.getInt("idlinha"), next.getDouble("lat"), next.getDouble("lng")));
             current++;
             next = getNullableCoord(obj, current);
         }

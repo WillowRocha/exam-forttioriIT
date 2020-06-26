@@ -4,31 +4,31 @@ import java.io.Serializable;
 
 public class CoordId implements Serializable {
 
-    private Integer idLinha;
-    private String lat;
-    private String lng;
+    private Integer lineId;
+    private Double latitude;
+    private Double longitude;
 
-    public Integer getIdLinha() {
-        return idLinha;
+    public Integer getLineId() {
+        return lineId;
     }
 
-    public void setIdLinha(Integer idLinha) {
-        this.idLinha = idLinha;
+    public void setLineId(Integer lineId) {
+        this.lineId = lineId;
     }
 
-    public String getLat() {
-        return lat;
+    public Double getLatitude() {
+        return latitude;
     }
 
-    public void setLat(String lat) {
-        this.lat = lat;
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
-    public String getLng() {
-        return lng;
+    public Double getLongitude() {
+        return longitude;
     }
 
-    public void setLng(String lng) {
-        this.lng = lng;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }

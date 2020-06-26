@@ -13,10 +13,10 @@ public class Busline {
     public Busline() {
     }
 
-    public Busline(Integer id, String codigo, String nome) {
+    public Busline(Integer id, String code, String name) {
         this.id = id;
-        this.codigo = codigo;
-        this.nome = nome;
+        this.code = code;
+        this.name = name;
     }
 
     @Id
@@ -24,10 +24,10 @@ public class Busline {
     private Integer id;
 
     @Column(name = "CODIGO")
-    private String codigo;
+    private String code;
 
     @Column(name = "NOME")
-    private String nome;
+    private String name;
 
 
     public Integer getId() {
@@ -38,19 +38,19 @@ public class Busline {
         this.id = id;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getCode() {
+        return code;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 }
