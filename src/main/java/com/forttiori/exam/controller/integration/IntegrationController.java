@@ -1,8 +1,10 @@
 package com.forttiori.exam.controller.integration;
 
 import com.forttiori.exam.service.integration.IntegrationService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,26 +12,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/integration")
-public class IntegrationTestController {
+public class IntegrationController {
 
     @Autowired
     private IntegrationService service;
 
+    @ApiOperation("Integra as linhas de ônibus da API Datapoa com o banco de dados")
     @PostMapping("/buslines")
-    ResponseEntity integrateBuslines() {
+    void integrateBuslines() {
         service.integrateBusLines();
-        return ResponseEntity.ok("");
     }
 
+    @ApiOperation("Integra os itinerários da API Datapoa com o banco de dados, para as linhas de ônibus cadastradas")
     @PostMapping("/itineraries")
-    ResponseEntity integrateItineraries() {
+    void integrateItineraries() {
         service.integrateItineraries();
-        return ResponseEntity.ok("");
     }
 
+    @ApiOperation("Integra o itinerário de uma linha de ônibus com o banco de dados, para uma linha cadastrada")
+    @ApiResponses(value = {
+            @ApiResponse(code = 422, message = "Linha de ônibus não cadastrada")
+    })
     @PostMapping("/itineraries/{lineId}")
-    ResponseEntity integrateItinerary(@PathVariable Integer lineId) {
+    void integrateItinerary(@PathVariable Integer lineId) {
         service.integrateItinerary(lineId);
-        return ResponseEntity.ok("");
     }
 }

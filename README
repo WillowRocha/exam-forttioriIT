@@ -1,0 +1,5 @@
+# README #
+Este projeto contém endpoints reponsável pela integração com a API Datapoa e manipulação de dados no banco.
+
+# DOCS #
+./swagger-ui.html

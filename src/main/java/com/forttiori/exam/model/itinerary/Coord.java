@@ -2,6 +2,7 @@ package com.forttiori.exam.model.itinerary;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.forttiori.exam.model.id.CoordId;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
@@ -24,9 +25,11 @@ public class Coord {
     @Column(name = "ID_LINHA")
     private Integer lineId;
     @Id
+    @ApiModelProperty("Latitude")
     @Column(name = "LATITUDE")
     private Double latitude;
     @Id
+    @ApiModelProperty("Longitude")
     @Column(name = "LONGITUDE")
     private Double longitude;
 

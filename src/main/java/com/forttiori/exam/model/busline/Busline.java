@@ -1,6 +1,8 @@
 package com.forttiori.exam.model.busline;
 
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,12 +22,15 @@ public class Busline {
     }
 
     @Id
+    @ApiModelProperty("Id")
     @Column(name = "ID")
     private Integer id;
 
+    @ApiModelProperty("Código")
     @Column(name = "CODIGO")
     private String code;
 
+    @ApiModelProperty("Nome")
     @Column(name = "NOME")
     private String name;
 
