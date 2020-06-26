@@ -19,19 +19,12 @@ public class ItineraryService {
     private CoordRepo coordRepo;
     private BuslineRepo buslineRepo;
 
+
     @Autowired
     public ItineraryService(ItineraryRepo repo, CoordRepo coordRepo, BuslineRepo buslineRepo) {
         this.repo = repo;
         this.coordRepo = coordRepo;
         this.buslineRepo = buslineRepo;
-    }
-
-    public Iterable<Itinerary> getItineraries() {
-        Iterable<Itinerary> itineraries = repo.findAll();
-        itineraries.forEach(it -> {
-            it.setCoords(coordRepo.findAllByLineId(it.getLineId()));
-        });
-        return itineraries;
     }
 
     public Itinerary getItineraryById(Integer id) {
@@ -41,6 +34,14 @@ public class ItineraryService {
             return itinerary;
         }
         return null;
+    }
+
+    public Iterable<Itinerary> getItineraries() {
+        Iterable<Itinerary> itineraries = repo.findAll();
+        itineraries.forEach(it -> {
+            it.setCoords(coordRepo.findAllByLineId(it.getLineId()));
+        });
+        return itineraries;
     }
 
     @Transactional

@@ -20,14 +20,14 @@ public class ItineraryController {
         this.service = service;
     }
 
-    @GetMapping
-    Iterable<Itinerary> findAll() {
-        return service.getItineraries();
-    }
-
     @GetMapping("/{id}")
     Itinerary findById(@PathVariable @NotNull Integer id) {
         return service.getItineraryById(id);
+    }
+
+    @GetMapping
+    Iterable<Itinerary> findAll() {
+        return service.getItineraries();
     }
 
     @PostMapping

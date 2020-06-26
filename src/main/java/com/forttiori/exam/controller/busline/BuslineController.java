@@ -1,6 +1,7 @@
 package com.forttiori.exam.controller.busline;
 
 import com.forttiori.exam.http.BuslineRequest;
+import com.forttiori.exam.http.ItineraryFilterRequest;
 import com.forttiori.exam.model.busline.Busline;
 import com.forttiori.exam.service.busline.BuslineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class BuslineController {
     @GetMapping("/{id}")
     Busline findById(@PathVariable Integer id) {
         return service.getBuslineById(id);
+    }
+
+    @GetMapping("/filter")
+    Iterable<Busline> findBuslinesByRadius(@Valid ItineraryFilterRequest request) {
+        return service.getItinerariesByRadius(request);
     }
 
     @GetMapping
